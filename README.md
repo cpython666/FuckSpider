@@ -1,1 +1,1 @@
-FuckSpider是一个
+FuckSpider是一个反爬虫策略讲解与存放代码示例的仓库

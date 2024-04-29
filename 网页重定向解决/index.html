@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Detect if DevTools is open">
+<meta name="author" content="Sindre Sorhus">
+<meta name="viewport" content="width=device-width">
+<title>devtools-detect • Detect if DevTools is open</title>
+<style>
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.main {
+    position: absolute;
+    width: 700px;
+    height: 250px;
+    top: 50%;
+    left: 50%;
+    margin-top: -170px; /* negative number 1/2 height, increased it a bit to push it upwards */
+    margin-left: -350px; /* negative number 1/2 width */
+}
+
+.main h1 {
+    font-size: 60px;
+    font-weight: 100;
+}
+
+#devtools-state {
+    margin: 50px 0 36px 0;
+    font-size: 100px;
+    font-weight: 200;
+}
+
+#devtools-orientation {
+    margin-bottom: 40px;
+    font-size: 28px;
+    height: 28px;
+    font-weight: 100;
+}
+
+.instruction {
+    font-weight: 200;
+    color: #666;
+}
+
+.twitter-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+</style>
+</head>
+<body>
+<a href="https://github.com/sindresorhus/devtools-detect">
+<img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+</a>
+<div class="container">
+<section class="main span12 text-center">
+<h1>控制台打开了吗?</h1>
+<h2 id="devtools-state"></h2>
+<h3 id="devtools-orientation"></h3>
+<div class="instruction">试试打开控制台</div>
+</section>
+<footer>
+<div class="twitter-btn">
+</div>
+</footer>
+</div>
+<script type="module">
+import devtools from './index.js';
+
+const stateElement = document.querySelector('#devtools-state');
+const orientationElement = document.querySelector('#devtools-orientation');
+
+stateElement.textContent = devtools.isOpen ? '打开了' : '没有打开';
+orientationElement.textContent = devtools.orientation ? devtools.orientation : '';
+
+window.addEventListener('devtoolschange', event => {
+    stateElement.textContent = event.detail.isOpen ? '打开了' : '没有打开';
+    orientationElement.textContent = event.detail.orientation ? event.detail.orientation : '';
+});
+</script>
+
+</body>
+</html>
